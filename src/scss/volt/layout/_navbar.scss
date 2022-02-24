@@ -485,3 +485,15 @@
         top: -5px;
     }
 }
+
+.button-no-style{
+    border:none;
+    background-color:transparent;
+    align-items: center;
+    margin-left: 0.7rem;
+}
+
+.button-no-style a{
+    color:#66799e;
+    font-size: 1rem;
+}
