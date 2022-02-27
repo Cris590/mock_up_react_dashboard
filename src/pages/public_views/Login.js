@@ -1,73 +1,100 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleLeft, faEnvelope, faUnlockAlt } from "@fortawesome/free-solid-svg-icons";
-import { faFacebookF, faGithub, faTwitter } from "@fortawesome/free-brands-svg-icons";
-import { Col, Row, Form, Card, Button, FormCheck, Container, InputGroup } from '@themesberg/react-bootstrap';
-import { Link } from 'react-router-dom';
+import { faEnvelope, faUnlockAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  Col,
+  Row,
+  Form,
+  Button,
+  Container,
+  InputGroup,
+} from "@themesberg/react-bootstrap";
+import { Link } from "react-router-dom";
 
 import { Routes } from "../../routes";
 import BgImage from "../../assets/img/illustrations/signin.svg";
+import { useForm } from "../../hooks/useForm";
+import { useDispatch, useSelector } from "react-redux";
+import {  startLoginUserPassword } from "../../actions/auth";
+
 
 
 const Login = () => {
+  const dispatch=useDispatch();
+
+  const [formValues, handleInputChange,reset] = useForm({
+    user: "",
+    password: "",
+  });
+
+  const { user, password } = formValues;
+
+  // const state=useSelector( state=>state );
+  // console.log('Este es el state',state)
+
+  const handleLogin=(e)=>{
+    e.preventDefault();
+    console.log('Parametros',user,password)
+    dispatch(startLoginUserPassword(user,password))
+    reset()
+  }
+
   return (
     <main>
       <section className="d-flex align-items-center my-5 mt-lg-6 mb-lg-5">
         <Container>
-          <Row className="justify-content-center form-bg-image" style={{ backgroundImage: `url(${BgImage})` }}>
-            <Col xs={12} className="d-flex align-items-center justify-content-center">
-              <div className="bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500">
+          <Row
+            className="justify-content-center form-bg-image"
+            style={{ backgroundImage: `url(${BgImage})` }}
+          >
+            <Col
+              xs={12}
+              className="d-flex align-items-center justify-content-center"
+            >
+              <div className="bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500 mb-5">
                 <div className="text-center text-md-center mb-4 mt-md-0">
-                  <h3 className="mb-0">Sign in to our platform</h3>
+                  <h3 className="mb-0">Bienvenido</h3>
                 </div>
-                <Form className="mt-4">
+                <Form className="mt-4" onSubmit={handleLogin}>
                   <Form.Group id="email" className="mb-4">
-                    <Form.Label>Your Email</Form.Label>
+                    <Form.Label>Usuario</Form.Label>
                     <InputGroup>
                       <InputGroup.Text>
                         <FontAwesomeIcon icon={faEnvelope} />
                       </InputGroup.Text>
-                      <Form.Control autoFocus required type="email" placeholder="example@company.com" />
+                      <Form.Control
+                        autoFocus
+                        required
+                        type="text"
+                        placeholder="usuario"
+                        name='user'
+                        value={user}
+                        onChange={handleInputChange}
+                      />
                     </InputGroup>
                   </Form.Group>
                   <Form.Group>
                     <Form.Group id="password" className="mb-4">
-                      <Form.Label>Your Password</Form.Label>
+                      <Form.Label>Contraseña</Form.Label>
                       <InputGroup>
                         <InputGroup.Text>
                           <FontAwesomeIcon icon={faUnlockAlt} />
                         </InputGroup.Text>
-                        <Form.Control required type="password" placeholder="Password" />
+                        <Form.Control
+                          required
+                          type="password"
+                          placeholder="Contraseña"
+                          name='password'
+                          value={password}
+                          onChange={handleInputChange}
+                        />
                       </InputGroup>
                     </Form.Group>
-                    <div className="d-flex justify-content-between align-items-center mb-4">
-                      <Form.Check type="checkbox">
-                        <FormCheck.Input id="defaultCheck5" className="me-2" />
-                        <FormCheck.Label htmlFor="defaultCheck5" className="mb-0">Remember me</FormCheck.Label>
-                      </Form.Check>
-                      <Card.Link className="small text-end">Lost password?</Card.Link>
-                    </div>
                   </Form.Group>
                   <Button variant="primary" type="submit" className="w-100">
-                    Sign in
+                      Ingresar
                   </Button>
                 </Form>
-
-                <div className="mt-3 mb-4 text-center">
-                  <span className="fw-normal">or login with</span>
-                </div>
-                <div className="d-flex justify-content-center my-4">
-                  <Button variant="outline-light" className="btn-icon-only btn-pill text-facebook me-2">
-                    <FontAwesomeIcon icon={faFacebookF} />
-                  </Button>
-                  <Button variant="outline-light" className="btn-icon-only btn-pill text-twitter me-2">
-                    <FontAwesomeIcon icon={faTwitter} />
-                  </Button>
-                  <Button variant="outline-light" className="btn-icon-only btn-pil text-dark">
-                    <FontAwesomeIcon icon={faGithub} />
-                  </Button>
-                </div>
-               
               </div>
             </Col>
           </Row>
@@ -77,4 +104,4 @@ const Login = () => {
   );
 };
 
-export default Login
+export default Login;

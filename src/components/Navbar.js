@@ -9,9 +9,8 @@ import { Routes } from "../routes";
 import Profile3 from "../assets/img/team/profile-picture.jpg";
 import { Link } from "react-router-dom";
 
-
 export default (props) => {
-
+  
 
   return (
     <Navbar variant="dark" expanded className="ps-0 pe-2 pb-0">
@@ -29,7 +28,7 @@ export default (props) => {
                 </div>
               </Dropdown.Toggle>
               <Dropdown.Menu className="user-dropdown dropdown-menu-right mt-2">
-                <button class="button-no-style">
+                <button className="button-no-style">
                   <FontAwesomeIcon icon={faSignOutAlt} className="text-danger me-2" /> 
                   <Link to={Routes.Login.path}>
                     Cerrar sesión

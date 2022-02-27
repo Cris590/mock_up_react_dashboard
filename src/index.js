@@ -23,7 +23,7 @@ import "./scss/volt.scss";
 // vendor styles
 import "react-datetime/css/react-datetime.css";
 
-import App from "./pages/App";
+import {App} from "./pages/App";
 import ScrollToTop from "./components/ScrollToTop";
 
 ReactDOM.render(
