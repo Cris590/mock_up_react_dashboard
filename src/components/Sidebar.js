@@ -1,28 +1,41 @@
 
 import React, { useState } from "react";
 import SimpleBar from 'simplebar-react';
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { CSSTransition } from 'react-transition-group';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {  faSignOutAlt, faTable, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { Nav, Badge, Image, Button, Accordion, Navbar } from '@themesberg/react-bootstrap';
 import { Link } from 'react-router-dom';
 
-import { Routes } from "../routes";
+import { appRoutes } from "../appRoutes";
 import ReactHero from "../assets/img/technologies/react-hero-logo.svg";
 import ProfilePicture from "../assets/img/team/profile-picture.jpg";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../actions/auth";
 
 export default (props = {}) => {
   const location = useLocation();
   const { pathname } = location;
   const [show, setShow] = useState(false);
   const showClass = show ? "show" : "";
+  const dispatch = useDispatch();
+  const navigate=useNavigate();
+
+  const { identificacion,nombre } = useSelector((state) => state.auth);
+  const handleSingOut=(e)=>{
+    e.preventDefault()
+    dispatch(logout())
+    navigate(appRoutes.Login.path,{replace:true});
+  }
 
   const onCollapse = () => setShow(!show);
 
   const CollapsableNavItem = (props) => {
     const { eventKey, title, icon, children = null } = props;
     const defaultKey = pathname.indexOf(eventKey) !== -1 ? eventKey : "";
+
+    
 
     return (
       <Accordion as={Nav.Item} defaultActiveKey={defaultKey}>
@@ -69,7 +82,7 @@ export default (props = {}) => {
   return (
     <>
       <Navbar expand={false} collapseOnSelect variant="dark" className="navbar-theme-primary px-4 d-md-none">
-        <Navbar.Brand className="me-lg-5" as={Link} to={Routes.Main.path}>
+        <Navbar.Brand className="me-lg-5" as={Link} to={appRoutes.Main.path}>
           <Image src={ReactHero} className="navbar-brand-light" />
         </Navbar.Brand>
         <Navbar.Toggle as={Button} aria-controls="main-navbar" onClick={onCollapse}>
@@ -85,9 +98,9 @@ export default (props = {}) => {
                   <Image src={ProfilePicture} className="card-img-top rounded-circle border-white" />
                 </div>
                 <div className="d-block">
-                  <h6>Hi, Jane</h6>
-                  <Button as={Link} variant="secondary" size="xs" to={Routes.Login.path} className="text-dark">
-                    <FontAwesomeIcon icon={faSignOutAlt} className="me-2" /> Sign Out
+                  <h6>Hi, {nombre}</h6>
+                  <Button onClick={handleSingOut}  variant="secondary" size="xs" className="text-dark">
+                    <FontAwesomeIcon icon={faSignOutAlt} className="me-2" /> Cerrar sesión
                   </Button>
                 </div>
               </div>
@@ -96,16 +109,16 @@ export default (props = {}) => {
               </Nav.Link>
             </div>
             <Nav className="flex-column pt-3 pt-md-0">
-              <NavItem title="Volt React" link={Routes.Main.path} image={ReactHero} />
+              <NavItem title="Volt React" link={appRoutes.Main.path} image={ReactHero} />
 
               <CollapsableNavItem eventKey="app_usuarios/" title="Admin" icon={faTable}>
-                <NavItem title="Usuarios" link={Routes.AdminUsuarios.path} />
-                <NavItem title="Permisos" link={Routes.AdminPermisos.path} />
+                <NavItem title="Usuarios" link={appRoutes.AdminUsuarios.path} />
+                <NavItem title="Permisos" link={appRoutes.AdminPermisos.path} />
               </CollapsableNavItem>
 
               <CollapsableNavItem eventKey="app_productos/" title="Productos" icon={faTable}>
-                <NavItem title="Productos" link={Routes.PanelProductos.path} />
-                <NavItem title="Categorias" link={Routes.PanelCategorias.path} />
+                <NavItem title="Productos" link={appRoutes.PanelProductos.path} />
+                <NavItem title="Categorias" link={appRoutes.PanelCategorias.path} />
               </CollapsableNavItem>
 
             </Nav>

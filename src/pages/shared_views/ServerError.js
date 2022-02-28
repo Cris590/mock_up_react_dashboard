@@ -5,7 +5,7 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { Col, Row, Image, Button, Container } from '@themesberg/react-bootstrap';
 import { Link } from 'react-router-dom';
 
-import { Routes } from "../../routes";
+import { appRoutes } from "../../appRoutes";
 import ErrorImage from "../../assets/img/illustrations/500.svg";
 
 
@@ -22,7 +22,7 @@ export default () => {
               <p className="lead my-4">
                 It's always time for a coffee break. We should be back by the time you finish your coffee.
           </p>
-              <Button as={Link} variant="primary" className="animate-hover" to={Routes.DashboardOverview.path}>
+              <Button as={Link} variant="primary" className="animate-hover" to={appRoutes.DashboardOverview.path}>
                 <FontAwesomeIcon icon={faChevronLeft} className="animate-left-3 me-3 ms-2" />
                 Go back home
               </Button>

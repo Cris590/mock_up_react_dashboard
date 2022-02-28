@@ -54,6 +54,15 @@ const login=(usuario)=>({
         ...usuario
     }
 })
+
+export const logout=(usuario)=>
+{
+    localStorage.removeItem('token');
+    localStorage.removeItem('token-init-date')
+    return {
+        type:types.logout
+    }
+}
      
 
 

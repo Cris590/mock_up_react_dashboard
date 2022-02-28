@@ -1,11 +1,11 @@
 import React from 'react'
-import {Redirect} from 'react-router-dom'
-import { Routes } from '../routes'
+import {Navigate} from 'react-router-dom'
+import { appRoutes } from '../appRoutes'
 
 const PrivateRoute = ({id_usuario,children}) => {
   return (!!id_usuario)
   ? children
-  :<Redirect to={Routes.Login.path} />
+  :<Navigate to={appRoutes.Login.path} />
 }
 
 export default PrivateRoute

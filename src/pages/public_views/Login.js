@@ -9,12 +9,12 @@ import {
   Container,
   InputGroup,
 } from "@themesberg/react-bootstrap";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-import { Routes } from "../../routes";
+import { appRoutes } from "../../appRoutes";
 import BgImage from "../../assets/img/illustrations/signin.svg";
 import { useForm } from "../../hooks/useForm";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {  startLoginUserPassword } from "../../actions/auth";
 
 
@@ -28,15 +28,13 @@ const Login = () => {
   });
 
   const { user, password } = formValues;
-
-  // const state=useSelector( state=>state );
-  // console.log('Este es el state',state)
+  const navigate = useNavigate()
 
   const handleLogin=(e)=>{
     e.preventDefault();
-    console.log('Parametros',user,password)
     dispatch(startLoginUserPassword(user,password))
     reset()
+    navigate(appRoutes.Main.path,{replace:true});
   }
 
   return (
