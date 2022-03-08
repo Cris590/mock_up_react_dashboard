@@ -6,19 +6,24 @@ export const useForm = ( initialState = {} ) => {
     const [values, setValues] = useState(initialState);
 
     const reset = () => {
-        setValues( initialState );
+        setValues( {} );
+    }
+
+    const setManual=(parametros) => {
+        setValues({
+            ...values,
+            ...parametros
+        })
     }
 
 
     const handleInputChange = ({ target }) => {
-
         setValues({
             ...values,
             [ target.name ]: target.value
         });
-
     }
 
-    return [ values, handleInputChange, reset ];
+    return [ values, handleInputChange, reset,setManual ];
 
 }

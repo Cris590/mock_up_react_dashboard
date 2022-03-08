@@ -1,7 +1,8 @@
-import React from 'react'
 
-const setting = {
-  back:'http://localhost:3002'
+const settings = {
+  back:process.env.REACT_APP_BACKEND_HOST,
+  categories:`app/categorias`,
+  products:`app/productos`,
 }
 
-export default setting
+export default settings

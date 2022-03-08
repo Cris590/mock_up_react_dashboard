@@ -2,6 +2,7 @@
 const baseUrl=process.env.REACT_APP_BACKEND_HOST
 
 const fetchSinToken = (endpoint,data,method='GET') => {
+
     const url=`${baseUrl}/${endpoint}`;
     if(method==='GET'){
         return fetch(url);
@@ -27,7 +28,7 @@ const fetchConToken = (endpoint,data,method='GET') => {
                 'x-token':token
             }, 
         });
-    }else{
+    }else{  
         return fetch(url,{
             method,
             headers: { 
@@ -39,7 +40,27 @@ const fetchConToken = (endpoint,data,method='GET') => {
     }
 }
 
+const fetchMultipartToken = (endpoint,data,method='POST') => {
+    const formData=new FormData();
+    Object.keys(data).forEach(key => {
+      formData.append(key, data[key])
+    });
+    
+    const url=`${baseUrl}/${endpoint}`;
+    const token =localStorage.getItem('token');
+
+    return fetch(url,{
+        method,
+        body: formData,
+        redirect: 'follow',
+        headers: { 
+            'x-token':token
+        }, 
+    })
+}
+
 export {
     fetchSinToken,
-    fetchConToken
+    fetchConToken,
+    fetchMultipartToken
 }

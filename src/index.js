@@ -25,7 +25,10 @@ import "react-datetime/css/react-datetime.css";
 import {App} from "./pages/App";
 ReactDOM.render(
   <>
-    
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
     <App />
   </>,
   document.getElementById("root")

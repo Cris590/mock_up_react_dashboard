@@ -10,7 +10,6 @@ import Profile3 from "../assets/img/team/profile-picture.jpg";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../actions/auth";
-import { useEffect } from "react";
 
 export default (props) => {
 
